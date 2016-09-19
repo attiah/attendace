@@ -8,7 +8,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 // device APIs are available
 //
 function onDeviceReady() {
-    toast("start");
+    //toast("start");
     pictureSource = navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
 }
@@ -137,7 +137,7 @@ function onPhotoDataSuccess(imageData) {
     // The in-line CSS rules are used to resize the image
     //
     smallImage.src = "data:image/jpeg;base64," + imageData;
-    //testface();
+    alert("ok");
 }
 
 // Called when a photo is successfully retrieved
