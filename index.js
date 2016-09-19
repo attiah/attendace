@@ -139,7 +139,7 @@ function onPhotoDataSuccess(imageData) {
     smallImage.src = "data:image/jpeg;base64," + imageData;
     $.ajax({
         type: "POST",
-        url: "http://www.attend.somee.com/code/Saveimage.ashx",
+        url: "http://www.attend.somee.com/Saveimage.ashx",
 
         data: { data: imageData },
         success: function (par) {
