@@ -137,7 +137,19 @@ function onPhotoDataSuccess(imageData) {
     // The in-line CSS rules are used to resize the image
     //
     smallImage.src = "data:image/jpeg;base64," + imageData;
-    alert("ok");
+    $.ajax({
+        type: "POST",
+        url: "http://www.attend.somee.com/code/Saveimage.ashx",
+
+        data: { data: imageData },
+        success: function (par) {
+            toast(par);
+            localStorage.setItem("file", par);
+        },
+        error: function (par) {
+            //toast("error : " + par);
+        }
+    });
 }
 
 // Called when a photo is successfully retrieved
