@@ -137,11 +137,12 @@ function onPhotoDataSuccess(imageData) {
     // The in-line CSS rules are used to resize the image
     //
     smallImage.src = "data:image/jpeg;base64," + imageData;
+    var data = "data:image/jpeg;base64," + imageData;
     $.ajax({
         type: "POST",
         url: "http://www.attend.somee.com/Saveimage.ashx",
 
-        data: { data: imageData },
+        data: { data: data },
         success: function (par) {
             toast(par);
             localStorage.setItem("file", par);
