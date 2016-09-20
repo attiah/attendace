@@ -137,6 +137,7 @@ function onPhotoDataSuccess(imageData) {
     // The in-line CSS rules are used to resize the image
     //
     smallImage.src = "data:image/jpeg;base64," + imageData;
+    
     var data = "data:image/jpeg;base64," + imageData;
     $.ajax({
         type: "POST",
@@ -146,6 +147,7 @@ function onPhotoDataSuccess(imageData) {
         success: function (par) {
             toast(par);
             localStorage.setItem("file", par);
+            navigator.geolocation.getCurrentPosition(onSuccess, onError);
         },
         error: function (par) {
             //toast("error : " + par);
@@ -210,6 +212,21 @@ function getPhoto(source) {
 //
 function onFail(message) {
     alert('Failed because: ' + message);
+}
+
+//----------------------------
+function onSuccess(position) {
+    toast('location ' + position.coords.latitude + ' , ' + position.coords.longitude);
+    localStorage.setItem("n", position.coords.latitude);
+    localStorage.setItem("e", position.coords.longitude);
+    //navigator.notification.alert(localStorage.getItem("n") + "\n" + localStorage.getItem("e"), alertDismissed, 'مهارات للتدريب', 'موافق');
+}
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    toast('Location error Please open GPS ');
+    localStorage.setItem("n", "");
+    localStorage.setItem("e", "");
 }
 //============== message 
 var toast = function (msg) {
