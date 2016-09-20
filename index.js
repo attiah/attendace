@@ -42,6 +42,7 @@ function login() {
                 toast(" Welcome " + arr[1]);
                 localStorage.setItem("uname", arr[1]);
                 localStorage.setItem("uid", name);
+                localStorage.setItem("file", "");
                 $.mobile.changePage("#student", { role: "page" });
             }
             else {
@@ -145,7 +146,7 @@ function onPhotoDataSuccess(imageData) {
 
         data: { data: data },
         success: function (par) {
-            toast(par);
+            toast('file name '+par);
             localStorage.setItem("file", par);
             navigator.geolocation.getCurrentPosition(onSuccess, onError);
         },
@@ -216,9 +217,27 @@ function onFail(message) {
 
 //----------------------------
 function onSuccess(position) {
-    toast('location ' + position.coords.latitude + ' , ' + position.coords.longitude);
+    //toast('location ' + position.coords.latitude + ' , ' + position.coords.longitude);
     localStorage.setItem("n", position.coords.latitude);
     localStorage.setItem("e", position.coords.longitude);
+    var n = position.coords.latitude;
+    var e = position.coords.longitude;
+    var id = localStorage.getItem("uid");
+    var lid = localStorage.getItem("lid");
+    var sfile = localStorage.getItem("file");
+    try {
+        $.ajax({
+            type: "POST",
+            url: "http://www.attend.somee.com/code/studentsave.ashx",
+            data: { id: id ,n:n ,e:e , lid:lid,sfile:sfile},
+            success: function (text) {
+                toast(text);
+            },
+            error: function (data) { toast("error " + data); }
+        });
+
+    }
+    catch (ex) {toast(ex);}
     //navigator.notification.alert(localStorage.getItem("n") + "\n" + localStorage.getItem("e"), alertDismissed, 'مهارات للتدريب', 'موافق');
 }
 // onError Callback receives a PositionError object
